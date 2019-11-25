@@ -1,6 +1,5 @@
 
 import React, { Component } from "react";
-// import ReactDOM from "react-dom";
 import datasource from './data';
 import ItemTable from './components/ItemsTable';
 import {Pagination} from 'carbon-components-react';
@@ -25,32 +24,33 @@ class App extends Component {
     var totalItems = rows.length;
     return (
         <>
-        <div className={'bx--row'}>
-            <div className={'bx--col-lg-12'}>
-          <ItemTable rows={rows.slice(this.state.firstRowIndex, this.state.firstRowIndex + this.state.currentPageSize)}>
-          </ItemTable>
+            <div className={'bx--row'}>
+                <div className={'bx--col-lg-12'}>
+              <ItemTable rows={rows.slice(this.state.firstRowIndex,
+                  this.state.firstRowIndex + this.state.currentPageSize)}>
+              </ItemTable>
+                </div>
             </div>
-        </div>
-        <div className={'bx--row'}>
-            <div className={'bx--col-lg-12'}>
-          <Pagination
-              totalItems={totalItems}
-              backwardText="Previous page"
-              forwardText="Next page"
-              pageSize={this.state.currentPageSize}
-              pageSizes={[5, 10, 25, 100]}
-              itemsPerPageText="Items per page"
-              onChange={({ page, pageSize }) => {
-                if (pageSize !== this.state.currentPageSize) {
-                  this.setState({ currentPageSize: pageSize });
-                }
-                this.setState({ firstRowIndex: pageSize * (page - 1) });
-                this.forceUpdate();
-              }}
-          />
+            <div className={'bx--row'}>
+                <div className={'bx--col-lg-12'}>
+                  <Pagination
+                      totalItems={totalItems}
+                      backwardText="Previous page"
+                      forwardText="Next page"
+                      pageSize={this.state.currentPageSize}
+                      pageSizes={[5, 10, 25, 100]}
+                      itemsPerPageText="Items per page"
+                      onChange={({ page, pageSize }) => {
+                        if (pageSize !== this.state.currentPageSize) {
+                          this.setState({ currentPageSize: pageSize });
+                        }
+                        this.setState({ firstRowIndex: pageSize * (page - 1) });
+                        this.forceUpdate();
+                      }}
+                  />
+                </div>
             </div>
-        </div>
-            </>
+        </>
     );
   }
 }
