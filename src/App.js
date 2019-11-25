@@ -4,6 +4,7 @@ import React, { Component } from "react";
 import datasource from './data';
 import ItemTable from './components/ItemsTable';
 import {Pagination} from 'carbon-components-react';
+import  'carbon-components/css/carbon-components.css'
 import './App.css';
 
 class App extends Component {
@@ -23,9 +24,15 @@ class App extends Component {
     var rows = this.state.items;
     var totalItems = rows.length;
     return (
-        <div className={'App'}>
+        <>
+        <div className={'bx--row'}>
+            <div className={'bx--col-lg-12'}>
           <ItemTable rows={rows.slice(this.state.firstRowIndex, this.state.firstRowIndex + this.state.currentPageSize)}>
           </ItemTable>
+            </div>
+        </div>
+        <div className={'bx--row'}>
+            <div className={'bx--col-lg-12'}>
           <Pagination
               totalItems={totalItems}
               backwardText="Previous page"
@@ -41,7 +48,9 @@ class App extends Component {
                 this.forceUpdate();
               }}
           />
+            </div>
         </div>
+            </>
     );
   }
 }
