@@ -1,8 +1,0 @@
-# Craft (Create React App From Template) config
-# See https://github.com/cebroker/craft for details.
-spec:
-  ignore:
-    - .gitignore
-    - README.md
-    - public
-    - src
