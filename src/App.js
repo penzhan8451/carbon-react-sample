@@ -1,26 +1,51 @@
-import React from 'react';
-import logo from './logo.svg';
+
+import React, { Component } from "react";
+// import ReactDOM from "react-dom";
+import datasource from './data';
+import ItemTable from './components/ItemsTable';
+import {Pagination} from 'carbon-components-react';
 import './App.css';
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+class App extends Component {
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      items: datasource(),
+      // totalItems: 0,
+      currentPageSize: 10,
+      firstRowIndex: 0,
+    };
+
+  }
+
+  render() {
+    var rows = this.state.items;
+    var totalItems = rows.length;
+    return (
+        <div className={'App'}>
+          <ItemTable rows={rows.slice(this.state.firstRowIndex, this.state.firstRowIndex + this.state.currentPageSize)}>
+          </ItemTable>
+          <Pagination
+              totalItems={totalItems}
+              backwardText="Previous page"
+              forwardText="Next page"
+              pageSize={this.state.currentPageSize}
+              pageSizes={[5, 10, 25, 100]}
+              itemsPerPageText="Items per page"
+              onChange={({ page, pageSize }) => {
+                if (pageSize !== this.state.currentPageSize) {
+                  this.setState({ currentPageSize: pageSize });
+                }
+                this.setState({ firstRowIndex: pageSize * (page - 1) });
+                this.forceUpdate();
+              }}
+          />
+        </div>
+    );
+  }
 }
 
 export default App;
+
+// ReactDOM.render(<App />, document.querySelector(".container"));
